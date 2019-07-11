@@ -1,0 +1,27 @@
+<p>
+  files works!
+</p>
+- {{ entries.length }} -
+<ul *ngFor="let entry of entries">
+  <li>
+    <a (click)="changeDir(entry)">{{ entry }}</a>
+  </li>
+</ul>
+
+<form [formGroup]="folderForm" (ngSubmit)="createFolder()">
+  <h1>Créer un nouveau dossier</h1>
+
+  <div class="create-folder-input">
+    <input
+      type="text"
+      formControlName="folderName"
+      placeholder="nom du dossier"
+    />
+  </div>
+
+  <div class="create-folder-button">
+    <button type="submit" [disabled]="folderForm.invalid">
+      Créer un nouveau dossier
+    </button>
+  </div>
+</form>
