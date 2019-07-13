@@ -1,27 +1,76 @@
-<p>
-  files works!
-</p>
-- {{ entries.length }} -
-<ul *ngFor="let entry of entries">
-  <li>
-    <a (click)="changeDir(entry)">{{ entry }}</a>
-  </li>
-</ul>
+<div class="container">
+  <div class="files-container">
+    <h2>Explorateur de fichiers</h2>
+    <div class="create-folder">
+      <h4>Créer un nouveau dossier</h4>
+      <form
+        class="folder-form"
+        [formGroup]="folderForm"
+        (ngSubmit)="createFolder()"
+      >
+        <div
+          class="create-folder-field 
+      "
+        >
+          <input
+            [className]="
+              folderExist === true
+                ? 'create-folder-input-error'
+                : 'create-folder-input'
+            "
+            type="text"
+            formControlName="folderName"
+            placeholder="nom du dossier"
+          />
+          <div
+            *ngIf="folderExist === true"
+            class="folder-already-exist-message"
+          >
+            Le dossier existe déjà
+          </div>
+        </div>
 
-<form [formGroup]="folderForm" (ngSubmit)="createFolder()">
-  <h1>Créer un nouveau dossier</h1>
+        <div class="folder-button">
+          <button type="submit" [disabled]="folderForm.invalid">
+            <i class="fas fa-folder-plus"></i>
+          </button>
+        </div>
+      </form>
+    </div>
 
-  <div class="create-folder-input">
-    <input
-      type="text"
-      formControlName="folderName"
-      placeholder="nom du dossier"
-    />
+    <div class="folders">
+      <div class="scroll-folders" *ngIf="folders.lenght !== 0">
+        <div class="folder" *ngFor="let folder of folders">
+          <div class="folder-header">
+            <h3 *ngIf="folder !== undefined">{{ folder[0] }}</h3>
+            <button
+              *ngIf="folder !== undefined"
+              (click)="deleteFolder(folder[0])"
+            >
+              Supprimer le dossier
+              <i class="fas fa-trash"></i>
+            </button>
+            <input
+              type="file"
+              (change)="addPicture($event, folder[0])"
+              #fileInput
+            />
+            <button (click)="fileInput.click()">
+              Ajouter une image<i class="far fa-image"></i>
+            </button>
+          </div>
+
+          <div class="files" *ngIf="folder !== undefined">
+            <div class="file" *ngFor="let file of folder[1]">
+              <img
+                [src]="'../../../assets/user-data/' + folder[0] + '/' + file"
+                [alt]="file"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="create-folder-button">
-    <button type="submit" [disabled]="folderForm.invalid">
-      Créer un nouveau dossier
-    </button>
-  </div>
-</form>
+  <div class="picture-workplace"></div>
+</div>
