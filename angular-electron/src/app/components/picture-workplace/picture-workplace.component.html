@@ -1,0 +1,58 @@
+<div class="picture-workplace-container">
+  <div class="picture-workplace-header">
+    <div class="picture-buttons">
+      <div class="delete-picture">
+        <button (click)="deletePicture()">
+          Supprimer l'image
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+      <div class="save-picture">
+        <button (click)="saveInterestPoint()">
+          Enregistrer le zoom
+          <i class="far fa-save"></i>
+        </button>
+      </div>
+    </div>
+    <span>utiliser la molette pour zoomer et les flèches pour se déplacer</span>
+  </div>
+  <div class="picture">
+    <div
+      [style.width]="initialWidth !== undefined ? initialWidth + 'px' : '90%'"
+      [style.height]="
+        initialHeight !== undefined ? initialHeight + 'px' : '90%'
+      "
+      class="picture-zoombox active"
+      mouse
+      (mouseWheelUp)="mouseWheelUpFunc($event)"
+      (mouseWheelDown)="mouseWheelDownFunc($event)"
+      (keyUp)="keyFunc($event)"
+    >
+      <div class="zoombox-center">
+        <img
+          [style.width]="dimens.width !== null ? dimens.width + 'px' : auto"
+          [style.height]="dimens.height !== null ? dimens.height + 'px' : auto"
+          [style.top]="dimens.top !== null ? dimens.top + 'px' : auto"
+          [style.left]="dimens.left !== null ? dimens.left + 'px' : auto"
+          [src]="_domSanitizer.bypassSecurityTrustUrl(currentPicture.file)"
+        />
+        <div
+          *ngIf="
+            (dimens.left | number: '1.0-0') >=
+            -(initialWidth | number: '1.0-0') / 2
+          "
+        >
+          <button
+            class="interest-point"
+            *ngFor="let interestPoint of currentPicture.interestPoints"
+            [style.top]="interestPoint.pointTop + 'px'"
+            [style.left]="interestPoint.pointLeft + 'px'"
+            (click)="loadInterstZoom(interestPoint)"
+          >
+            <i class="fas fa-search-plus"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

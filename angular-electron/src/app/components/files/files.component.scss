@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+
 body,
 div,
 input,
@@ -12,143 +18,269 @@ a {
     Arial, sans-serif;
 }
 
+i {
+  margin: 5px;
+}
+
+button:focus {
+  outline-color: transparent;
+}
+
+[class$="error-message"] {
+  font-size: 12px;
+  color: #ff3860;
+}
+
 .container {
   display: flex;
   flex-wrap: nowrap;
   width: 100%;
   height: 100%;
   overflow: hidden;
-}
 
-.files-container {
-  background: #1e2324da;
-  height: 100%;
-  width: 30%;
-}
+  .files-container {
+    background: #404344;
+    height: 100%;
+    width: 30%;
+    overflow: hidden;
 
-.picture-workplace {
-  background: #1e2324ab;
-  height: 100%;
-  width: 70%;
-}
+    .files-container-title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 10%;
+      border-right: 1px solid rgba(0, 0, 0, 0.2);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+      /*box-shadow: 0 1px 0 rgba(32, 34, 37, 0.7), 0 2px 0 rgba(0, 0, 0, 0.06);*/
+    }
 
-.create-folder {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-}
+    .create-folder {
+      height: 15%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-content: center;
+      align-items: center;
+      background: #383b3b;
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
 
-.folder-form {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-content: flex-start;
-}
+      .folder-form {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-content: flex-start;
 
-[class^="create-folder-input"] {
-  border: 1px solid #cccccc;
-  border-radius: 2px;
-  margin-top: 6px;
-  width: 100%;
-}
+        .create-folder-field {
+          height: 50px;
 
-.create-folder-input:focus {
-  border: 1px solid #aaaaaa;
-  outline-color: transparent;
-}
+          [class^="create-folder-input"] {
+            border: 1px solid #cccccc;
+            border-radius: 2px;
+            margin-top: 10px;
+            width: 100%;
+          }
 
-.create-folder-input-error {
-  border: 1px solid #ff3860;
-}
+          .create-folder-input:focus {
+            border: 1px solid #aaaaaa;
+            outline-color: transparent;
+          }
 
-.create-folder-input-error:focus {
-  outline-color: transparent;
-}
+          .create-folder-input-error {
+            border: 1px solid #ff3860;
+          }
 
-.folder-already-exist-message {
-  font-size: 12px;
-  color: #ff3860;
-}
+          .create-folder-input-error:focus {
+            outline-color: transparent;
+          }
+        }
 
-.folder-button button {
-  border: none;
-  text-decoration: none;
-  background: transparent;
-  color: #157f97b2;
-  font-size: 30px;
-}
+        .folder-button {
+          display: flex;
+          align-items: flex-start;
 
-.folder-button button:disabled {
-  color: grey;
-}
+          button {
+            border: none;
+            text-decoration: none;
+            background: transparent;
+            color: #157f97b2;
+            font-size: 30px;
+            display: flex;
+            align-items: flex-start;
+          }
+          button:disabled {
+            color: grey;
+          }
 
-.folder-button button:focus {
-  outline-color: transparent;
-  color: #157f97;
-}
+          button:focus {
+            outline-color: transparent;
+            color: #157f97;
+          }
+        }
+      }
+    }
 
-.folders {
-  position: relative;
-  display: flex;
-  min-height: 0;
-  max-height: 100vh;
-  height: 100%;
-  flex: 1 1 auto;
-  outline: 0;
-  overflow: hidden;
-}
+    .folders {
+      height: 75%;
+      position: relative;
+      overflow-x: hidden;
 
-.scroll-folders {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  box-sizing: border-box;
-  overflow-y: scroll;
-  -webkit-box-flex: 1;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-}
+      .scroll-folders {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: -17px;
+        @media only screen and (max-device-width: 1024px) {
+          right: 0;
+          left: 0;
+        }
+        height: 100%;
+        overflow-y: scroll;
 
-.folder-header {
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-around;
-  align-items: center;
-}
+        .folder {
+          margin: 5%;
+          background: #1e232485;
+          border-radius: 0px;
+          box-shadow: 2px 3px 5px 0 rgba(0, 0, 0, 0.2),
+            -2px -3px 5px 0 rgba(0, 0, 0, 0.2);
 
-.folder-header button {
-  border: none;
-  text-decoration: none;
-  background: transparent;
-  color: #f0f0f0b2;
-  font-size: 15px;
-}
-.folder-header i {
-  margin: 5px;
-}
+          .folder-header {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-around;
+            align-items: center;
+            flex-direction: column;
 
-.folder-header [type="file"] {
-  display: none;
-}
+            box-shadow: 0 1px 0 rgba(32, 34, 37, 0.7),
+              0 2px 0 rgba(0, 0, 0, 0.06);
 
-.files {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-content: center;
-}
+            .folder-name {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 100%;
+              height: 60px;
 
-.file {
-  width: 100px;
-  height: 100px;
-}
+              h3 {
+                height: auto;
+              }
+            }
 
-.files img {
-  max-width: 100px;
-  max-height: 100px;
+            .folder-buttons {
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: space-around;
+              align-items: center;
+              width: 100%;
+
+              > div {
+                height: 50px;
+                width: 172px;
+                display: flex;
+                justify-content: flex-start;
+                flex-direction: column;
+                align-content: center;
+                align-items: center;
+              }
+
+              button {
+                border: none;
+                text-decoration: none;
+                background: transparent;
+                color: #f0f0f0b2;
+                font-size: 15px;
+                display: flex;
+                align-content: center;
+                align-items: center;
+              }
+
+              .add-picture button:hover {
+                color: #38ff9c;
+              }
+
+              .delete-folder button:hover {
+                color: #ff3860;
+              }
+
+              [type="file"] {
+                display: none;
+              }
+
+              [class^="add-picture-button"] i {
+                font-size: 20px;
+              }
+
+              .add-picture-button-error i {
+                color: #ff3860;
+              }
+            }
+          }
+          .files {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+            padding: 5%;
+
+            .file {
+              width: 100px;
+              height: 100px;
+              margin: 5px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              align-content: center;
+
+              button {
+                border: none;
+                text-decoration: none;
+                background: transparent;
+
+                img {
+                  max-width: 100px;
+                  max-height: 100px;
+
+                  box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2),
+                    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    > * {
+      display: flex;
+      justify-content: center;
+      align-content: center;
+    }
+  }
+
+  .workplace-container {
+    height: 100%;
+    width: 70%;
+
+    .picture-workplace-container {
+      height: 100%;
+      width: 100%;
+
+      background: #575a5a;
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: column;
+
+      .picture-workplace-header {
+        background: #404344;
+        height: 10%;
+        width: 100%;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+      }
+
+      .picture {
+        height: 90%;
+        width: 100%;
+      }
+    }
+  }
 }

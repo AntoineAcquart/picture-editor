@@ -1,0 +1,138 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+
+body,
+div,
+input,
+p,
+h1,
+h2,
+h3,
+h4,
+a {
+  font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica,
+    Arial, sans-serif;
+}
+
+i {
+  margin: 5px;
+}
+
+button:focus {
+  outline-color: transparent;
+}
+
+[class$="error-message"] {
+  font-size: 12px;
+  color: #ff3860;
+}
+
+.picture-workplace-container {
+  height: 100%;
+  width: 100%;
+
+  background: #575a5a;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+
+  .picture-workplace-header {
+    background: #404344;
+    height: 10%;
+    width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    /*box-shadow: 0 1px 0 rgba(32, 34, 37, 0.7), 0 2px 0 rgba(0, 0, 0, 0.06);*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+
+    .picture-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: center;
+      width: 80%;
+
+      > div {
+        height: 50px;
+        width: 172px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      button {
+        border: none;
+        text-decoration: none;
+        background: transparent;
+        color: #f0f0f0b2;
+        font-size: 15px;
+        display: flex;
+        align-content: center;
+        align-items: center;
+      }
+
+      .save-picture button:hover {
+        color: #38ff9c;
+      }
+
+      .delete-picture button:hover {
+        color: #ff3860;
+      }
+    }
+  }
+
+  .picture {
+    height: 90%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .picture-zoombox {
+      max-width: 90%;
+      max-height: 90%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+
+      .zoombox-center {
+        width: 3px;
+        height: 3px;
+        border-radius: 3px;
+        position: relative;
+
+        img {
+          min-width: 10%;
+          min-height: 10%;
+          position: absolute;
+          box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2),
+            0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          z-index: 10;
+        }
+
+        .interest-point {
+          width: 10px;
+          height: 10px;
+          border-radius: 5px;
+          z-index: 11;
+          background: transparent;
+          color: #ff3860;
+          position: absolute;
+          border: none;
+          text-decoration: none;
+        }
+      }
+    }
+    [class="picture-zoombox active"] {
+      border: 1px solid #ff3860;
+    }
+  }
+}

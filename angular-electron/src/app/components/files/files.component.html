@@ -1,6 +1,8 @@
 <div class="container">
   <div class="files-container">
-    <h2>Explorateur de fichiers</h2>
+    <div class="files-container-title">
+      <h2>Explorateur de fichiers</h2>
+    </div>
     <div class="create-folder">
       <h4>Créer un nouveau dossier</h4>
       <form
@@ -8,10 +10,7 @@
         [formGroup]="folderForm"
         (ngSubmit)="createFolder()"
       >
-        <div
-          class="create-folder-field 
-      "
-        >
+        <div class="create-folder-field">
           <input
             [className]="
               folderExist === true
@@ -24,7 +23,7 @@
           />
           <div
             *ngIf="folderExist === true"
-            class="folder-already-exist-message"
+            class="folder-already-exist-error-message"
           >
             Le dossier existe déjà
           </div>
@@ -40,37 +39,87 @@
 
     <div class="folders">
       <div class="scroll-folders" *ngIf="folders.lenght !== 0">
-        <div class="folder" *ngFor="let folder of folders">
-          <div class="folder-header">
-            <h3 *ngIf="folder !== undefined">{{ folder[0] }}</h3>
-            <button
-              *ngIf="folder !== undefined"
-              (click)="deleteFolder(folder[0])"
-            >
-              Supprimer le dossier
-              <i class="fas fa-trash"></i>
-            </button>
-            <input
-              type="file"
-              (change)="addPicture($event, folder[0])"
-              #fileInput
-            />
-            <button (click)="fileInput.click()">
-              Ajouter une image<i class="far fa-image"></i>
-            </button>
+        <div class="folder" *ngFor="let folder of folders | keyvalue">
+          <div class="folder-header" *ngIf="folder.value !== undefined">
+            <div class="folder-name">
+              <h3>{{ folder.value.name }}</h3>
+            </div>
+            <div class="folder-buttons">
+              <div class="delete-folder">
+                <button
+                  *ngIf="folder.value !== undefined"
+                  (click)="deleteFolder(folder.value.name)"
+                >
+                  Supprimer le dossier
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+              <div class="add-picture">
+                <input
+                  type="file"
+                  (change)="addPicture($event, folder.value.name)"
+                  #fileInput
+                  accept=".png, .jpg, .jpeg"
+                />
+                <button
+                  [className]="
+                    folder.value.pictureErrorMessages != null
+                      ? 'add-picture-button-error'
+                      : 'add-picture-button'
+                  "
+                  (click)="fileInput.click()"
+                >
+                  Ajouter une image<i class="far fa-image"></i>
+                </button>
+                <div
+                  *ngIf="folder.value.pictureErrorMessages != null"
+                  class="picture-format-error-message"
+                >
+                  <span
+                    *ngFor="let message of folder.value.pictureErrorMessages"
+                  >
+                    {{ message }}
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div class="files" *ngIf="folder !== undefined">
-            <div class="file" *ngFor="let file of folder[1]">
-              <img
-                [src]="'../../../assets/user-data/' + folder[0] + '/' + file"
-                [alt]="file"
-              />
+          <div class="files" *ngIf="folder.value !== undefined">
+            <div class="file" *ngFor="let file of folder.value.files">
+              <button
+                (click)="
+                  openPictureInWorkplace(
+                    path + '/' + folder.value.name + '/' + file
+                  )
+                "
+              >
+                <img
+                  [src]="
+                    _domSanitizer.bypassSecurityTrustUrl(
+                      path + '/' + folder.value.name + '/' + file
+                    )
+                  "
+                  [alt]="file"
+                />
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="picture-workplace"></div>
+  <div class="workplace-container">
+    <app-picture-workplace
+      [picturePath]="currentPicture"
+      *ngIf="currentPicture !== undefined"
+    ></app-picture-workplace>
+    <div
+      class="picture-workplace-container"
+      *ngIf="currentPicture === undefined"
+    >
+      <div class="picture-workplace-header"></div>
+      <div class="picture"></div>
+    </div>
+  </div>
 </div>
